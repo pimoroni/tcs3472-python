@@ -9,7 +9,7 @@ usage:
 	@echo "install:       install the library locally from source"
 	@echo "uninstall:     uninstall the local library"
 	@echo "check:         peform basic integrity checks on the codebase"
-	@echo "python-readme: generate library/README.rst from README.md"
+	@echo "python-readme: generate library/README.md from README.md + library/CHANGELOG.txt"
 	@echo "python-wheels: build python .whl files for distribution"
 	@echo "python-sdist:  build python source distribution"
 	@echo "python-clean:  clean python build and dist directories"
@@ -36,13 +36,13 @@ check:
 tag:
 	git tag -a "v${LIBRARY_VERSION}" -m "Version ${LIBRARY_VERSION}"
 
-python-readme: library/README.rst
+python-readme: library/README.md
 
 python-license: library/LICENSE.txt
 
-library/README.rst: README.md library/CHANGELOG.txt
+library/README.md: README.md library/CHANGELOG.txt
 	cp README.md library/README.md
-	echo "" >> library/README.md
+	printf "\n# Changelog\n" >> library/README.md
 	cat library/CHANGELOG.txt >> library/README.md
 
 library/LICENSE.txt: LICENSE
